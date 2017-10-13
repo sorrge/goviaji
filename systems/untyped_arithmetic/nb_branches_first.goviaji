@@ -1,0 +1,58 @@
+# TaPL chapter 3 Exercise 3.5.18
+import nb_syntax
+
+
+# semantics where the "then" and "else" branches of if are evaluated before the guard, in that order
+
+rule e_if_true = eval (if true then V2 else V3) V2 :- value V2, value V3                 
+rule e_if_false = eval (if false then V2 else V3) V3 :- value V2, value V3                
+rule e_if_then_branch = eval (if T1 then T2_before else T3) (if T1 then T2_after else T3) :-
+    eval T2_before T2_after, term T2_before, term T2_after, term T1,
+    term T3                                                             
+
+rule e_if_else_branch = eval (if T1 then V2 else T3_before) (if T1 then V2 else T3_after) :-
+    value V2, eval T3_before T3_after, term T3_before, term T3_after, term T1
+                                                                        
+
+rule e_if_guard = eval (if T1_before then V2 else V3) (if T1_after then V2 else V3) :-
+    value V2, value V3, eval T1_before T1_after, term T1_before, term T1_after
+                                                                        
+
+# other rules are unchanged
+
+rule eval_succ = eval (succ T1) (succ T2) :- eval T1 T2, term T1, term T2
+rule eval_pred_0 = eval (pred 0) 0
+rule eval_pred_succ = eval (pred (succ Nv)) Nv :- numeric_value Nv
+rule eval_pred = eval (pred T1) (pred T2) :- eval T1 T2, term T1, term T2
+rule eval_is_zero_0 = eval (is_zero 0) true
+rule eval_is_zero_succ = eval (is_zero (succ Nv)) false :- numeric_value Nv
+rule eval_is_zero = eval (is_zero T1) (is_zero T2) :- eval T1 T2, term T1, term T2
+
+
+# tests
+
+print test_1 = if (if true then true else false) then false else true        
+
+print test_2 = if true then true else false
+
+print double = if (if true then true else false)
+            then (if false then false else false)
+            else true
+
+print triple = if (if true then true else false)
+            then (if false then false else false)
+            else (if (is_zero (succ (pred 0)))
+                then (pred (succ 0))
+                else true)
+
+print simple = if false then false else true
+
+print main = if true then (if false then false else false) else true
+
+print syntax_error = if if then (if false then false else false) else true
+
+print val = false
+
+print test_stuck = succ (if (is_zero 0) then false else (succ 0))
+
+print test_num_bool = if (is_zero 0) then false else (succ 0)

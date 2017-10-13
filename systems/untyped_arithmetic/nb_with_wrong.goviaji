@@ -1,0 +1,28 @@
+# TaPL chapter 3 Exercise 3.5.16
+
+import nb
+
+
+# bad syntactic categories
+
+rule badnat_wrong = badnat wrong
+rule badnat_true = badnat true
+rule badnat_false = badnat false
+
+rule badbool_wrong = badbool wrong
+rule badbool_numeric = badbool Nv :- numeric_value Nv
+
+
+# semantics for wrong
+rule e_if_wrong = eval (if Bb then T1 else T2) wrong :- badbool Bb, term T1, term T2
+rule e_succ_wrong = eval (succ Bn) wrong :- badnat Bn
+rule e_pred_wrong = eval (pred Bn) wrong :- badnat Bn
+rule e_is_zero_wrong = eval (is_zero Bn) wrong :- badnat Bn
+
+
+# tests
+
+import nb_tests
+print test_wrong_1 =  succ (if (is_zero 0) then false else (succ 0))
+
+print test_wrong_2 = if (is_zero 0) then false else (succ 0)

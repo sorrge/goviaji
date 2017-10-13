@@ -1,0 +1,49 @@
+# TaPL chapter 3 Exercise 3.5.17
+import nb_syntax
+
+
+# big-step (natural) semantics
+
+rule b_value = eval V V :- value V
+rule b_if_true = eval (if T1 then T2 else T3) V2 :- eval T1 true, eval T2 V2, term T1,
+    term T2, term T3, value V2
+
+rule b_if_false = eval (if T1 then T2 else T3) V3 :- eval T1 false, eval T3 V3, term T1,
+    term T2, term T3, value V3
+
+rule b_succ = eval (succ T) (succ Nv) :- eval T Nv, term T, numeric_value Nv
+rule b_pred_0 = eval (pred T) 0 :- eval T 0, term T
+rule b_pred_succ = eval (pred T) Nv :- eval T (succ Nv), term T, numeric_value Nv
+rule b_is_zero_0 = eval (is_zero T) true :- eval T 0, term T
+rule b_is_zero_succ = eval (is_zero T) false :- eval T (succ Nv), term T, numeric_value Nv
+
+# tests
+
+print double = if (if true then true else false)
+            then (if false then false else false)
+            else true
+
+print simple = if false then false else true
+
+print main = if true then (if false then false else false) else true
+
+print syntax_error = if if then (if false then false else false) else true
+
+print val = false
+
+
+print ar_runtime_error = succ true
+
+print ar_0 =  is_zero (pred (pred 0))
+
+print e_pred_succ_test = pred (succ (pred 0))
+
+print test_stuck = succ (if (is_zero 0) then false else (succ 0))
+
+print test_num_bool = if (is_zero 0) then false else (succ 0)
+
+print triple = if (if true then true else false)
+            then (if false then false else false)
+            else (if (is_zero (succ (pred 0)))
+                then (pred (succ 0))
+                else true)

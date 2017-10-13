@@ -1,0 +1,36 @@
+# it takes about 5 minutes to compute these expressions
+import cn
+
+print s0 = scc c0
+print s0_alt = scc_alt c0
+
+print plus_test = plus c1 c2
+
+print times_test_1 = times c1 c2
+print times_test_alt = times_no_plus c1 c2
+
+print power_test_1 = power c0 c3
+
+print n1 = iszro c0
+print n2 = iszro c1
+print n3 = iszro c2
+print n4 = iszro (scc c0)
+
+print prd_1 = prd (prd (prd (times_no_plus c2 c2)))
+
+print power_test_2 = prd (power c1 c3)
+
+print minus_test = minus c2 c2
+
+print equal_test_1 = equal c3 (scc c2)
+print equal_test_2 = equal c2 (minus c3 c1)
+print equal_test_3 = equal (scc c2) (minus c3 c1)
+print equal_test_4 = equal (plus (power c2 c2) (prd c3)) (times c3 c2)
+print equal_test_5 = equal (plus (power c2 c2) c3) (times c3 c2)
+
+print l1 = cons prd (cons id nil)
+print l2 = isnil nil
+print l3 = isnil (cons fls nil)
+print l4 = head (cons prd (cons and nil))
+print l5 = head nil
+print l6 = head (tail (cons c2 (cons c3 nil)))

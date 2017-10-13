@@ -1,0 +1,9 @@
+# TaPL chapter 3 Fig. 3-1
+# syntax
+
+rule term_constant_true = term true
+rule term_constant_false = term false
+rule term_conditional = term (if T1 then T2 else T3) :- term T1, term T2, term T3
+
+rule value_true = value true
+rule value_false = value false

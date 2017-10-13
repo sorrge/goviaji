@@ -1,0 +1,20 @@
+import cb
+
+print cb1 = test fls fls id
+print cb2 = test tru fls id
+
+print and_1 = and tru tru
+print and_2 = and tru fls
+print and_3 = and fls fls
+print and_4 = and fls tru
+
+print or_1 = or tru tru
+print or_2 = or tru fls
+print or_3 = or fls fls
+print or_4 = or fls tru
+
+print not_1 = not tru
+print not_2 = not fls
+
+print pair_1 = fst (pair id and)
+print pair_2 = snd (pair id and)

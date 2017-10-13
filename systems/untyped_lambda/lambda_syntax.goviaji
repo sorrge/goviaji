@@ -1,0 +1,21 @@
+# TaPL Chapter 5, Figure 5.3
+
+
+# syntax
+
+# variable name must be an atom, because built-in equality predicates "is" and "is_not" only operate on atoms
+rule var_syntax =
+    variable X :- atom X, X is_not lambda, X is_not . , X is_not [
+
+rule term_lambda =
+    term (lambda X. T) :- variable X, term T
+
+rule term_application =
+    term (T1 T2) :- term T1, term T2
+
+rule term_var =
+    term X :- variable X
+
+
+rule lambda_val =
+    value (lambda X. T) :- term T

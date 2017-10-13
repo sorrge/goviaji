@@ -1,0 +1,23 @@
+# TaPL chapter 3 Fig. 3-2
+# extends B
+import nb_syntax
+import b
+
+
+# semantics
+
+rule eval_succ = eval (succ T1) (succ T2) :- eval T1 T2, term T1, term T2
+rule eval_pred_0 = eval (pred 0) 0
+rule eval_pred_succ = eval (pred (succ Nv)) Nv :- numeric_value Nv
+rule eval_pred = eval (pred T1) (pred T2) :- eval T1 T2, term T1, term T2
+rule eval_is_zero_0 = eval (is_zero 0) true
+rule eval_is_zero_succ = eval (is_zero (succ Nv)) false :- numeric_value Nv
+rule eval_is_zero = eval (is_zero T1) (is_zero T2) :- eval T1 T2, term T1, term T2
+
+
+def 1 = succ 0
+def 2 = succ 1
+def 3 = succ 2
+def 4 = succ 3
+def 5 = succ 4
+def 6 = succ 5

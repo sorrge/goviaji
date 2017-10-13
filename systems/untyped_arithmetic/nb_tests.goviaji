@@ -1,0 +1,8 @@
+import nb
+import b_tests
+
+print ar_runtime_error = succ true
+
+print ar_0 =  is_zero (pred (pred 0))
+
+print e_pred_succ_test = pred (succ (pred 0))

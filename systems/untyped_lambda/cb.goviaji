@@ -1,0 +1,14 @@
+# TaPL Chapter 5.2 Church Booleans and Pairs
+import lambda_semantics
+
+def tru = lambda T. (lambda F. T)
+def fls = lambda T. (lambda F. F)
+def test = lambda L. (lambda M. (lambda N. (L M N)))
+
+def and = lambda B. (lambda C. (B C fls))
+def or = lambda B. (lambda C. (B tru C))
+def not = lambda A. (A fls tru)
+
+def pair = lambda F. (lambda S. (lambda B. (B F S)))
+def fst = lambda P. (P tru)
+def snd = lambda P. (P fls)

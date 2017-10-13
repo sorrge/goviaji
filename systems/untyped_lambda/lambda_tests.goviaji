@@ -1,0 +1,14 @@
+import lambda_semantics
+
+print simple =
+    id id
+
+print simple_2 =
+    (lambda x. (x id)) ((lambda u. (u u)) id)
+
+print id_3 =
+    id (id (lambda z. (id z)))
+
+print omega_test = omega
+
+print bug_4 = lambda x. (lambda x. (id x)) id

@@ -1,0 +1,19 @@
+# TaPL Chapter 5, Figure 5.3
+import lambda_syntax
+import substitution
+
+
+# semantics
+
+rule e_app_1 =
+    eval (T1_before T2) (T1_after T2) :- term T1_before, term T2, eval T1_before T1_after
+
+rule e_app_2 =
+    eval (V1 T2_before) (V1 T2_after) :- value V1, term T2_before, eval T2_before T2_after
+
+rule e_app_abs =
+    eval ((lambda X. T1)V) T2 :- value V, [X -> V]T1 --> T2
+
+
+def id = lambda X. X
+def omega = (lambda X. (X X)) (lambda Y. (Y Y))

@@ -1,0 +1,17 @@
+# TaPL chapter 3 Fig. 3-2
+# extends B
+import b_syntax
+
+
+# syntax
+
+rule term_constant_0 = term 0
+rule term_succ = term (succ T) :- term T
+rule term_pred = term (pred T) :- term T
+rule term_is_zero = term (is_zero T) :- term T
+
+
+rule value_numeric = value Nv :- numeric_value Nv
+
+rule numeric_0 = numeric_value 0
+rule numeric_succ = numeric_value (succ Nv) :- numeric_value Nv

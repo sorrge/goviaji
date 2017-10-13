@@ -1,0 +1,17 @@
+import lambda_nb
+
+print rb_1 = realbool fls
+print rb_2 = realbool tru
+print rb_3 = churchbool false
+print rb_4 = churchbool true
+
+print rn_1 = realnat c3
+print rn_2 = realnat (times c2 c2)
+
+print re_1 = realeq c1 c3
+print re_2 = realeq c2 (scc c1)
+
+#print f_0 = (fix (lambda f_unused. (lambda x. (succ x)))) 1
+#print f_1 = (fix (lambda f. (lambda x. (if (is_zero x) then 5 else (pred (f (pred x))))))) 3
+#print f_2 = factorial c0
+print f_2 = realnat (factorial c3)

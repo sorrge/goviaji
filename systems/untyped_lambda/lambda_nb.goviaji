@@ -1,0 +1,20 @@
+# TaPL Chapter 5.2
+import cn
+
+# the goviaji magic happens right here: we simply include the other language definition and - BAM! -
+# our pure (poor) lambda calculus is enriched with native booleans and natural numbers, which interact smoothly
+import .. untyped_arithmetic nb
+
+def realbool = lambda B. (B true false)
+def churchbool = lambda B. (if B then tru else fls)
+
+def realnat = lambda M. (M (lambda X. (succ X)) 0)
+
+def realeq = lambda N. (lambda M. ((equal M N) true false))
+
+# recursion
+
+def fix = lambda F. ((lambda X. (F (lambda Y. (X X Y)))) (lambda XX. (F (lambda YY. (XX XX YY)))))
+
+def factorial = fix
+    (lambda factorial_r. (lambda N. (if (realeq N c0) then c1 else (times N (factorial_r (prd N))))))

@@ -1,0 +1,12 @@
+# TaPL chapter 3 Fig. 3-1
+import b_syntax
+
+# evaluation
+
+# syntactic category specification (term T2 etc.) is needed in some cases
+# it helps to restrict evaluation to valid terms
+rule e_if_true = eval (if true then T2 else T3) T2 :- term T2, term T3
+rule e_if_false = eval (if false then T2 else T3) T3 :- term T2, term T3
+rule e_if = eval (if T1_before then T2 else T3) (if T1_after then T2 else T3) :-
+    eval T1_before T1_after, term T1_before, term T1_after, term T2,
+    term T3

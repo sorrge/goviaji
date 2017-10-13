@@ -1,0 +1,13 @@
+import b
+
+print double = if (if true then true else false)
+            then (if false then false else false)
+            else true
+
+print simple = if false then false else true
+
+print main = if true then (if false then false else false) else true
+
+print syntax_error = if if then (if false then false else false) else true
+
+print val = false

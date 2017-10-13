@@ -1,0 +1,43 @@
+# TaPL Chapter 5.2 Church Numerals
+import cb
+
+def c0 = lambda S. (lambda Z. Z)
+def c1 = lambda S. (lambda Z. (S Z))
+def c2 = lambda S. (lambda Z. (S (S Z)))
+def c3 = lambda S. (lambda Z. (S (S (S Z))))
+def c4 = lambda S. (lambda Z. (S (S (S (S Z)))))
+def c5 = lambda S. (lambda Z. (S (S (S (S (S Z))))))
+def c6 = lambda S. (lambda Z. (S (S (S (S (S (S Z)))))))
+
+def scc = lambda N. (lambda S. (lambda Z. (S (N S Z))))
+def scc_alt = lambda N. (lambda S. (lambda Z. (N S (S Z))))  # Exercise 5.2.2
+
+def plus = lambda M. (lambda N. (lambda S. (lambda Z. (M S (N S Z)))))
+
+def times = lambda M. (lambda N. (M (plus N) c0))
+def times_no_plus = lambda M. (lambda N. (lambda S. (lambda Z. (M (N S) Z))))  # Exercise 5.2.3
+
+def power = lambda M. (lambda N. (N (times M) c1))  # Exercise 5.2.4
+
+def iszro = lambda M. (M (lambda X. fls) tru)
+
+def prd_zz = pair c0 c0
+def prd_ss = lambda P. (pair (snd P) (scc (snd P)))
+def prd = lambda M. (fst (M prd_ss prd_zz))
+
+def minus = lambda M. (lambda N. (N prd M))  # Exercise 5.2.5
+
+def neq = pair id fls
+def eq0 = pair (lambda X. neq) tru
+def eqn_run = lambda PE. ((fst PE) PE)
+def eqn_make = lambda PE. (pair (lambda X. PE) fls)
+def equal = lambda M. (lambda N. (snd (N eqn_run (M eqn_make eq0))))  # Exercise 5.2.7
+
+# lists, Exercise 5.2.8
+def nil = fls
+def cons = lambda H. (lambda T. (lambda C. (lambda N. (C H (T C N)))))
+def isnil = lambda L. (L (lambda X. (lambda Y. fls)) tru)
+def head = lambda L. (L (lambda H. (lambda T. H)) nil)
+def tail = lambda L. (snd (L (lambda H. (lambda T. (pair (cons H (fst T)) (fst T)))) (pair nil nil)))
+
+

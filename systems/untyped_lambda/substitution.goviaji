@@ -1,0 +1,54 @@
+# TaPL Chapter 5
+import lambda_syntax
+
+# Definition 5.3.2 - (not) in free variables test for lambda terms
+rule in_fv_var =
+    X in_fv X
+
+# when Y appears after "lambda", we know it can only be a variable, so there is no need to add "variable Y" as a premise
+# same with T being a term
+rule in_fv_lambda =
+    X in_fv (lambda Y. T) :- X is_not Y, X in_fv T
+
+rule in_fv_app_1 =
+    X in_fv (T1 T2) :- term T1, term T2, X in_fv T1
+
+rule in_fv_app_2 =
+    X in_fv (T1 T2) :- term T1, term T2, X in_fv T2
+
+rule not_in_fv_var =
+    X not_in_fv Y :- variable Y, X is_not Y
+
+rule not_in_fv_lambda_1 =
+    X not_in_fv (lambda X. T)
+
+rule not_in_fv_lambda_2 =
+    X not_in_fv (lambda Y. T) :- X is_not Y, X not_in_fv T
+
+rule not_in_fv_app =
+    X not_in_fv (T1 T2) :- term T1, term T2, X not_in_fv T1, X not_in_fv T2
+
+
+# Definition 5.3.5: "[x -> s]t1 = t2" is written as [x -> s]t1 --> t2 . I don't want to use "=" because it suggests
+# symmetry
+rule subs_var_1 =
+    [X -> T]X --> T
+
+rule subs_var_2 =
+    [X -> T]Y --> Y :- variable Y, X is_not Y
+
+rule subs_lambda_1 =
+    [X -> T1](lambda Y. T2) --> (lambda Y. T3) :- X is_not Y, Y not_in_fv T1, [X -> T1]T2 --> T3
+
+rule subs_lambda_2 =
+    [X -> T1](lambda X. T2) --> T3 :- alpha_convert (lambda X. T2) T3
+
+rule subs_lambda_3 =
+    [X -> T1](lambda Y. T2) --> T3 :- X is_not Y, Y in_fv T1, alpha_convert (lambda Y. T2) T4, [X -> T1]T4 --> T3
+
+rule subs_app =
+    [X -> T1](T2 T3) --> (T4 T5) :- term T2, term T3, [X -> T1]T2 --> T4, [X -> T1]T3 --> T5
+
+# this renames the bound variable to a new name
+rule alpha_conversion =
+    alpha_convert (lambda X. T1) (lambda Y. T2) :- new_atom Y, [X -> Y]T1 --> T2
